@@ -1,10 +1,11 @@
 # Whatsapp Web Status Checker
 
-Extension for Chrome, has to be loaded manually. Checks the status every x seconds. (default is 5s)
+Extension for Chrome, has to be loaded manually. Checks the status every x seconds. (default is 10s)
 
 # Installation
 
 Open up Google Chrome and go to chrome://extensions/
+
 Enable developer mode with the switch on the top right. A new toolbar will show up, and *load unpacked extension*.
 Select the root of this repository (just download and unzip)
 
@@ -13,7 +14,7 @@ Select the root of this repository (just download and unzip)
 Just open Whatsapp Web and click on the chat partner you want to observe. Leave in running. Click on "Download Logs" when you're done.
 *Attention:* You might have to disable the last-seen feature, so Whatsapp switches only between "online" and a blank space.
 
-*Please use with care.* This tool can be used for no good. This piece of software was made for demonstration purposes!
+**Please use with care.** This tool can be used for no good. This piece of software was made for demonstration purposes!
 
 # Config
 
