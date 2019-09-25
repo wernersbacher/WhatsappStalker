@@ -41,6 +41,10 @@ When you reload or close the page the logs are *lost*. Make sure you download th
 
 Switching between several user automatically, settings page, detecting other subpages.
 
+# Privacy Policy
+
+No user data are stored or analysed. All online status log data are getting saved in the local memory of your computer and get deleted when you leave the page.
+
 # Support and Contributing
 
 It can happen that Whatsapp Web changes the way it functions, so when there's a problem, just open an issue or open a pull request. 
