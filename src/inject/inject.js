@@ -6,6 +6,7 @@
 var config = {
 		updateInterval: 5, // in seconds
 		clearLogOnDowload: true, // set to false if you want to keep old logs after downloading.
+		started: true, //sets the autostart
 		consoleOutput: false, // for debugging and testing
 	}
 
@@ -27,6 +28,15 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
+//Create JS Node from HTML String
+function htmlToElement(html) {
+    var template = document.createElement('template');
+    html = html.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = html;
+    return template.content.firstChild;
+}
+
+
 var onlinedata = "";
 var timer= 0;
 
@@ -35,32 +45,74 @@ chrome.extension.sendMessage({}, function(response) {
 	var readyStateCheckInterval = setInterval(function() { 
 	if (document.readyState === "complete") {
 		clearInterval(readyStateCheckInterval);
+
+
+		//injecting toolbar
+		var toolbarHTML = ` 
+		<div id="_toolbar_wrapper">	
+			<div id="_toolbar"> 
+				<div class="onoffswitch">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ${config.started ? "checked" : "" }>
+					<label class="onoffswitch-label" for="myonoffswitch">
+						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
+				</div>
+				<input type="number" value="${config.updateInterval}" id="_seconds" min="1" step="1" />
+				<button id="_download">Download Log</button> 
+			</div>
+		</div>	
+				` ;
+
+		var toolbarNode = htmlToElement(toolbarHTML);
+		
+		//inject toolbar
+		document.getElementById("app").prepend(toolbarNode);
+		//document.body.prepend(toolbarNode);
+
+		//setup click handlers
+		//
+		//
+
+		//Download-btn
+		$("#_download").click(function(){
+			
+			if(onlinedata.length <1)
+				return;
+
+			var now = Math.floor(Date.now()/1000);
+
+			download("whatsapp-online-log-"+now+".csv", onlinedata);
+			
+			if(config.clearLogOnDowload)
+				onlinedata = ""; //reset log
+			
+		});
+
+		// seconds - input
+		var secs = document.getElementById('_seconds');
+		secs.addEventListener("change", function () {
+			config.updateInterval = secs.value;
+		}, false);
+		
+
+		// on-off-switch
+		var switcher = document.getElementById('myonoffswitch');
+		switcher.addEventListener("input", function (){
+			config.started = switcher.checked;
+		}, false);
+
 		
 		console.log("Injected WhatsappStalker.");
 		
 		setInterval(function() {
-			//only proceed if a chat is shown
-			if(!$('#main').length) {
+			//only proceed if a chat is shown and all is started
+			if(!$('#main').length || !config.started) {
 				return;
 			}
 			
 			var now = Math.floor(Date.now()/1000);
-			
-			//inject dl button if there is none
-			if(!$("#__downloadwa").length) {
-				var container = document.getElementById('main').children[1];
-				container.innerHTML = '<button style="margin-right: 11px; background: white; padding: 10px;" id="__downloadwa">Download Log</button>'+container.innerHTML;
 						
-				$("#__downloadwa").click(function(){
-					
-					download("whatsapp-online-log-"+now+".csv", onlinedata);
-					
-					if(config.clearLogOnDowload)
-						onlinedata = ""; //reset log
-					
-				});
-			}
-			
 			//only read data every x seconds
 			if(timer+1 < config.updateInterval) {
 				timer++;

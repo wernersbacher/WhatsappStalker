@@ -1,6 +1,6 @@
 {
   "name": "WhatsappStalker",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "manifest_version": 2,
   "description": "Observes a chat partner's online status and export as csv.",
   "homepage_url": "https://github.com/wernersbacher/WhatsappStalker",
@@ -20,7 +20,8 @@
       ],
       "js": [
         "src/inject/inject.js", "src/inject/j3.js"
-      ]
+      ],
+      "css" : ["src/inject/inject.css"]
     }
   ]
 }

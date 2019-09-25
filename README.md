@@ -1,30 +1,36 @@
-# Whatsapp Web Status Checker
+# Whatsapp Web "Stalker" Extension
 
-Extension for Chrome, has to be loaded manually. Checks the status every x seconds. (default is 10s)
+This is a small extension for Chrome, and has to be loaded manually. Checks the online status of a chat partner every x seconds and outputs a csv file.
 
 # Installation
+Download and unzip this repo somewhere on your computer.
 
 Open up Google Chrome and go to chrome://extensions/
 
-Enable developer mode with the switch on the top right. A new toolbar will show up, and *load unpacked extension*.
-Select the root of this repository (just download and unzip)
+Enable developer mode with the switch on the top right. A new toolbar will show up; click *load unpacked extension*.
+Select the root of this repository you just downloaded and unzipped.
 
 # Usage
 
 Just open Whatsapp Web and click on the chat partner you want to observe. Leave in running. Click on "Download Logs" when you're done.
-*Attention:* You might have to disable the last-seen feature, so Whatsapp switches only between "online" and a blank space.
+Be aware that when changing chat partners, it can't track your actual *subject*.
 
 **Please use with care.** This tool can be used for no good. This piece of software was made for demonstration purposes!
 
 # Config
 
-Go to src -> inject -> inject.js and change the settings there.
+On the top of the page is a control menu. You can set the time interval between online checks (in *seconds*) and the check status.
+You don't have to stop and start to change the interval duration.
+
+Go to src -> inject -> inject.js if you want to change more options or change the default settings.
 
 # Log Format
 
-You will download a csv file, which can easily be used in an excel sheed. Note that the timestamps are in seconds.
+You will download a csv file, which can easily be used in an excel sheet. Note that the timestamps are in seconds.
 
 # Known Bugs
+
+*Not working?* You might have to disable the last-seen feature, so Whatsapp switches only between "online" and a blank space.
 
 Since the extension is holding all the logs in the memory until you download them, there might be a memory problem when running for a long time.
 Furthermore, the extension might not work when opening submenus.
@@ -39,4 +45,3 @@ Switching between several user automatically, settings page, detecting other sub
 
 It can happen that Whatsapp Web changes the way it functions, so when there's a problem, just open an issue or open a pull request. 
 
-No Licence yet, so use it like freeware and don't say its yours :)
