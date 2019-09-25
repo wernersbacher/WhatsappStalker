@@ -47,7 +47,7 @@ chrome.extension.sendMessage({}, function(response) {
 		clearInterval(readyStateCheckInterval);
 
 
-		//injecting toolbar
+		//toolbar html
 		var toolbarHTML = ` 
 		<div id="_toolbar_wrapper">	
 			<div id="_toolbar"> 
@@ -63,16 +63,16 @@ chrome.extension.sendMessage({}, function(response) {
 			</div>
 		</div>	
 				` ;
-
+		//convert to js node
 		var toolbarNode = htmlToElement(toolbarHTML);
 		
 		//inject toolbar
 		document.getElementById("app").prepend(toolbarNode);
 		//document.body.prepend(toolbarNode);
 
-		//setup click handlers
-		//
-		//
+		/*
+			setting up event handlers here...
+		*/
 
 		//Download-btn
 		$("#_download").click(function(){
@@ -89,7 +89,7 @@ chrome.extension.sendMessage({}, function(response) {
 			
 		});
 
-		// seconds - input
+		// seconds-input
 		var secs = document.getElementById('_seconds');
 		secs.addEventListener("change", function () {
 			config.updateInterval = secs.value;
@@ -111,7 +111,6 @@ chrome.extension.sendMessage({}, function(response) {
 				return;
 			}
 			
-			var now = Math.floor(Date.now()/1000);
 						
 			//only read data every x seconds
 			if(timer+1 < config.updateInterval) {
@@ -120,8 +119,11 @@ chrome.extension.sendMessage({}, function(response) {
 			}
 			
 			timer = 0; //reset
+
+			//get timestamp
+			var now = Math.floor(Date.now()/1000);
 			
-			// read name from chat window
+			//read name from chat window
 			var name = $('#main [dir="auto"]').attr("title");
 
 			var online = "0";
