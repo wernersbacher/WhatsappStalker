@@ -11,3 +11,7 @@
   	chrome.pageAction.show(sender.tab.id);
     sendResponse();
   }); */
+  
+  chrome.browserAction.onClicked.addListener(function(tab) {
+    alert('working?');
+});
